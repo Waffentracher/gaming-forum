@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GameForum</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><%= link_to 'Головна', root_path %></li>
+          <li><%= link_to 'Пости', posts_path %></li>
+          <li><%= link_to 'Контакти', contacts_path %></li>
+          <li><%= link_to 'Про нас', about_path %></li>
+        </ul>
+        <ul>
+          <% if user_signed_in? %>
+            <li><%= link_to 'Вихід', logout_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to 'Реєстрація', signup_path %></li>
+            <li><%= link_to 'Вхід', login_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </header>
+
+    <%= yield %>
+  </body>
+</html>
