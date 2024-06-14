@@ -51,7 +51,6 @@ body {
 .filter {
     margin-bottom: 1rem;
 }
-
 /* app/assets/stylesheets/application.css */
 
 body {
@@ -95,3 +94,4 @@ h1 {
 .btn-secondary:hover {
     background-color: #5a6268;
 }
+
