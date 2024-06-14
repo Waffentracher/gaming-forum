@@ -7,3 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+# db/seeds.rb
+
+Category.create([
+  { name: 'General Discussion' },
+  { name: 'News and Announcements' },
+  { name: 'Tips and Tricks' },
+  { name: 'Support' },
+  { name: 'Off-Topic' }
+])

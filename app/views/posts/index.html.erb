@@ -1,31 +1,48 @@
-<!-- app/views/posts/index.html.erb -->
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Пости</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
-  </head>
-  <body>
-    
+<head>
+  <title>Пости</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="mb-4">Пости</h1>
+    <% if user_signed_in? %>
+      <%= link_to 'Додати пост', new_post_path, class: 'btn btn-primary mb-4' %>
+    <% end %>
 
-    <div class="container">
-      <h1>Пости</h1>
-      <% if user_signed_in? %>
-        <%= link_to 'Додати пост', new_post_path, class: 'btn btn-primary' %>
+    <div class="filter mb-4">
+      <%= form_with url: posts_path, method: :get, local: true, class: 'form-inline' do %>
+        <div class="form-group mr-2">
+          <%= select_tag :category, options_from_collection_for_select(@categories, :id, :name, params[:category]), include_blank: "Всі категорії", class: 'form-control' %>
+        </div>
+        <%= submit_tag "Фільтрувати", class: 'btn btn-secondary' %>
       <% end %>
-
-      <div class="posts-container">
-        <% @posts.each do |post| %>
-          <div class="post">
-            <h2><%= link_to post.title, post_path(post) %></h2>
-            <p><%= post.content.truncate(100) %></p>
-          </div>
-        <% end %>
-      </div>
     </div>
-  </body>
+
+    <div class="posts-container">
+      <% @posts.each do |post| %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h2 class="card-title"><%= link_to post.title, post_path(post) %></h2>
+            <p class="card-text"><%= truncate(post.content, length: 100) %></p>
+            <p class="card-text"><strong>Категорія:</strong> <%= post.category.name %></p>
+            <p class="card-text"><strong>Автор:</strong> <%= post.user.nickname %></p>
+            <%= link_to 'Переглянути', post, class: 'btn btn-info mr-2' %>
+            <% if post.user == current_user %>
+              <%= link_to 'Редагувати', edit_post_path(post), class: 'btn btn-warning mr-2' %>
+              <%= link_to 'Видалити', post, method: :delete, data: { confirm: 'Ви впевнені?' }, class: 'btn btn-danger' %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</body>
 </html>

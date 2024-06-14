@@ -1,9 +1,16 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index, :show, :search]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.all
+    @categories = Category.all
+    if params[:category].present?
+      @category = Category.find(params[:category])
+      @posts = @category.posts
+    else
+      @posts = Post.all
+    end
   end
 
   def show
@@ -16,7 +23,7 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created.'
+      redirect_to @post, notice: 'Пост був успішно створений.'
     else
       render :new
     end
@@ -27,7 +34,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
+      redirect_to @post, notice: 'Пост був успішно оновлений.'
     else
       render :edit
     end
@@ -35,7 +42,12 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_url, notice: 'Post was successfully destroyed.'
+    redirect_to posts_url, notice: 'Пост був успішно видалений.'
+  end
+
+  def search
+    @query = params[:query]
+    @posts = Post.where("title LIKE ? OR content LIKE ?", "%#{@query}%", "%#{@query}%")
   end
 
   private
@@ -45,6 +57,12 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :content)
+    params.require(:post).permit(:title, :content, :category_id)
+  end
+
+  def authorize_user!
+    unless @post.user == current_user
+      redirect_to posts_path, alert: 'Ви не маєте права виконувати цю дію.'
+    end
   end
 end

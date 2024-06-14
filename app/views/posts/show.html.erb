@@ -1,3 +1,40 @@
-<h1><%= @post.title %></h1>
-<p><%= @post.content %></p>
-<p><%= link_to 'Edit', edit_post_path(@post) %> | <%= link_to 'Back', posts_path %></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Show Post</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+  <div class="container mt-4">
+    <p id="notice" class="alert alert-success"><%= notice %></p>
+
+    <p>
+      <strong>Title:</strong>
+      <%= @post.title %>
+    </p>
+
+    <p>
+      <strong>Content:</strong>
+      <%= @post.content %>
+    </p>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @post.category.name %>
+    </p>
+
+    <% if @post.user == current_user %>
+      <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-warning' %> |
+      <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %> |
+    <% end %>
+
+    <%= link_to 'Back', posts_path, class: 'btn btn-secondary mt-3' %>
+  </div>
+</body>
+</html>

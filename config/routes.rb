@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   end
 
   root 'home#index'
+
+  resources :posts do
+    collection do
+      get 'search'
+    end
+  end
+  
   get 'posts', to: 'posts#index'
   get 'contacts', to: 'contacts#index'
   get 'about', to: 'about#index'
