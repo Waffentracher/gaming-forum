@@ -10,13 +10,14 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   </head>
- <div class="container mt-4">
-    <h1>Edit Post</h1>
+<body>
+  <div class="container mt-4">
+    <h1><%= t('posts.edit.title') %></h1>
 
     <%= form_with(model: @post, local: true) do |form| %>
       <% if @post.errors.any? %>
         <div id="error_explanation" class="alert alert-danger">
-          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+          <h2><%= pluralize(@post.errors.count, t('posts.edit.error_prohibited')) %> <%= t('posts.edit.error_prohibited') %>:</h2>
           <ul>
             <% @post.errors.full_messages.each do |message| %>
               <li><%= message %></li>
@@ -26,21 +27,23 @@
       <% end %>
 
       <div class="field">
-        <%= form.label :title %>
+        <%= form.label :title, t('posts.edit.title_label') %>
         <%= form.text_field :title, class: 'form-control' %>
       </div>
 
       <div class="field">
-        <%= form.label :content %>
+        <%= form.label :content, t('posts.edit.content_label') %>
         <%= form.text_area :content, class: 'form-control' %>
       </div>
 
       <div class="actions">
-        <%= form.submit 'Update', class: 'btn btn-secondary' %>
+        <%= form.submit t('posts.edit.update_button'), class: 'btn btn-secondary' %>
       </div>
     <% end %>
 
-    <%= link_to 'Back', posts_path, class: 'btn btn-secondary' %>
+    <%= link_to t('posts.edit.back'), posts_path, class: 'btn btn-secondary' %>
   </div>
 </body>
+
+
 </html>

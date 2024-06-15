@@ -1,31 +1,77 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  welcome:
+    title: "Welcome to our forum!"
+    description: "This forum is created for discussing games and other interesting topics. Join our community and share your thoughts!"
+    register_now: "Register now and start discussions."
+    register_button: "Registration"
+  search:
+    title: "Search posts"
+    placeholder: "Search..."
+    button: "Search"
+  about:
+    title: "About Us"
+    description: "This forum is created for discussing games and other interesting topics. Join our community and share your thoughts!"
+  latest_posts:
+    title: "Latest Posts"
+    category: "Category"
+    author: "Author"
+  navbar:
+    brand: "GameForum"
+    home: "Home"
+    posts: "Posts"
+    contacts: "Contacts"
+    about: "About Us"
+    search_placeholder: "Search"
+    search_button: "Search"
+    logout: "Logout"
+    sign_up: "Sign Up"
+    sign_in: "Sign In"
+
+  posts:
+    index:
+      title: "Posts"
+      add_post: "Add Post"
+      all_categories: "All categories"
+      filter_button: "Filter"
+      category: "Category"
+      author: "Author"
+      view: "View"
+      edit: "Edit"
+      delete: "Delete"
+      confirm_delete: "Are you sure?"
+
+    new:
+      title: "New Post"
+      error: "error"
+      prohibited: "prohibited this post from being saved"
+      title_label: "Title"
+      content_label: "Content"
+      category: "Category"
+      select_category: "Select a category"
+      create_post: "Create Post"
+      back: "Back"
+
+    show:
+      title_label: "Title"
+      content_label: "Content"
+      category_label: "Category"
+      edit: "Edit"
+      destroy: "Delete"
+      confirm_delete: "Are you sure?"
+      back: "Back"
+
+    edit:
+      title: "Edit Post"
+      error_prohibited: "error prohibited this post from being saved"
+      update_button: "Update"
+      back: "Back"
+      title_label: "Title"
+      content_label: "Content"
+      
+  contacts:
+    title: "Contacts"
+    content: "Here will be the contact information. You can reach us via email or phone. We are always happy to help you!"
+    
+  about:
+    title: "About Us"
+    content: "Information about our forum and our team. Our forum was founded in 2020 with the goal of bringing together people interested in technology and knowledge sharing. Our team consists of experienced professionals dedicated to providing the best experience for our users."

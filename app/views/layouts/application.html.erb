@@ -14,51 +14,58 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <%= link_to 'GameForum', root_path, class: 'navbar-brand' %>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav mr-auto">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <%= link_to t('navbar.brand'), root_path, class: 'navbar-brand' %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <%= link_to t('navbar.home'), root_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.posts'), posts_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.contacts'), contacts_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to t('navbar.about'), about_path, class: 'nav-link' %>
+          </li>
+        </ul>
+        <%= form_with url: search_posts_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0' do %>
+          <input class="form-control mr-sm-2" type="search" placeholder="<%= t('navbar.search_placeholder') %>" aria-label="Search" name="query">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><%= t('navbar.search_button') %></button>
+        <% end %>
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
             <li class="nav-item">
-              <%= link_to 'Головна', root_path, class: 'nav-link' %>
+              <%= link_to t('navbar.logout'), destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to t('navbar.sign_up'), new_user_registration_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <%= link_to 'Пости', posts_path, class: 'nav-link' %>
+              <%= link_to t('navbar.sign_in'), new_user_session_path, class: 'nav-link' %>
             </li>
-            <li class="nav-item">
-              <%= link_to 'Контакти', contacts_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Про нас', about_path, class: 'nav-link' %>
-            </li>
-          </ul>
-          <%= form_with url: search_posts_path, method: :get, local: true, class: 'form-inline my-2 my-lg-0' do %>
-            <input class="form-control mr-sm-2" type="search" placeholder="Пошук" aria-label="Search" name="query">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Шукати</button>
           <% end %>
-          <ul class="navbar-nav ml-auto">
-            <% if user_signed_in? %>
-              <li class="nav-item">
-                <%= link_to 'Вихід', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-              </li>
-            <% else %>
-              <li class="nav-item">
-                <%= link_to 'Реєстрація', new_user_registration_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to 'Вхід', new_user_session_path, class: 'nav-link' %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+          <li class="nav-item">
+            <%= link_to "English", url_for(locale: 'en'), class: (I18n.locale == :en ? 'nav-link active' : 'nav-link') %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Українська", url_for(locale: 'uk'), class: (I18n.locale == :uk ? 'nav-link active' : 'nav-link') %>
+          </li>
+        </ul>
       </div>
-    </nav>
-
-    <div class="container mt-4">
-      <%= yield %>
     </div>
-  </body>
+  </nav>
+
+  <div class="container mt-4">
+    <%= yield %>
+  </div>
+</body>
+
 </html>

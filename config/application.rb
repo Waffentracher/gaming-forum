@@ -16,8 +16,15 @@ module Forum2
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w(assets tasks))
 
+    # Set default locale to :uk (Ukrainian) and make English an available locale
+    config.i18n.default_locale = :uk
+    
+    # Ensure uk locale is available
+    config.i18n.available_locales = [:en, :uk]
     # Configuration for the application, engines, and railties goes here.
-    #
+    # # Set default locale to :uk (Ukrainian) and make English an available locale
+    # config.i18n.default_locale = :uk
+    # config.i18n.available_locales = [:en, :uk]
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #

@@ -11,18 +11,20 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+  <body>
   <div class="container mt-4">
-    <h1 class="mb-4">Пости</h1>
+    <h1><%= t('posts.index.title') %></h1>
+
     <% if user_signed_in? %>
-      <%= link_to 'Додати пост', new_post_path, class: 'btn btn-primary mb-4' %>
+      <%= link_to t('posts.index.add_post'), new_post_path, class: 'btn btn-primary mb-4' %>
     <% end %>
 
     <div class="filter mb-4">
       <%= form_with url: posts_path, method: :get, local: true, class: 'form-inline' do %>
         <div class="form-group mr-2">
-          <%= select_tag :category, options_from_collection_for_select(@categories, :id, :name, params[:category]), include_blank: "Всі категорії", class: 'form-control' %>
+          <%= select_tag :category, options_from_collection_for_select(@categories, :id, :name, params[:category]), include_blank: t('posts.index.all_categories'), class: 'form-control' %>
         </div>
-        <%= submit_tag "Фільтрувати", class: 'btn btn-secondary' %>
+        <%= submit_tag t('posts.index.filter_button'), class: 'btn btn-secondary' %>
       <% end %>
     </div>
 
@@ -32,12 +34,12 @@
           <div class="card-body">
             <h2 class="card-title"><%= link_to post.title, post_path(post) %></h2>
             <p class="card-text"><%= truncate(post.content, length: 100) %></p>
-            <p class="card-text"><strong>Категорія:</strong> <%= post.category.name %></p>
-            <p class="card-text"><strong>Автор:</strong> <%= post.user.nickname %></p>
-            <%= link_to 'Переглянути', post, class: 'btn btn-info mr-2' %>
+            <p class="card-text"><strong><%= t('posts.index.category') %>:</strong> <%= post.category.name %></p>
+            <p class="card-text"><strong><%= t('posts.index.author') %>:</strong> <%= post.user.nickname %></p>
+            <%= link_to t('posts.index.view'), post, class: 'btn btn-info mr-2' %>
             <% if post.user == current_user %>
-              <%= link_to 'Редагувати', edit_post_path(post), class: 'btn btn-warning mr-2' %>
-              <%= link_to 'Видалити', post, method: :delete, data: { confirm: 'Ви впевнені?' }, class: 'btn btn-danger' %>
+              <%= link_to t('posts.index.edit'), edit_post_path(post), class: 'btn btn-warning mr-2' %>
+              <%= link_to t('posts.index.delete'), post, method: :delete, data: { confirm: t('posts.index.confirm_delete') }, class: 'btn btn-danger' %>
             <% end %>
           </div>
         </div>
@@ -45,4 +47,7 @@
     </div>
   </div>
 </body>
+
+
+
 </html>

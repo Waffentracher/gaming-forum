@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Show Post</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-  <%= stylesheet_link_tag 'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
-<body>
-  <div class="container mt-4">
-    <p id="notice" class="alert alert-success"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
-    <p>
-      <strong>Title:</strong>
-      <%= @post.title %>
-    </p>
+<p>
+  <strong><%= t('posts.show.title_label') %>:</strong>
+  <%= @post.title %>
+</p>
 
-    <p>
-      <strong>Content:</strong>
-      <%= @post.content %>
-    </p>
+<p>
+  <strong><%= t('posts.show.content_label') %>:</strong>
+  <%= @post.content %>
+</p>
 
-    <p>
-      <strong>Category:</strong>
-      <%= @post.category.name %>
-    </p>
+<p>
+  <strong><%= t('posts.show.category_label') %>:</strong>
+  <%= @post.category.name %>
+</p>
 
-    <% if @post.user == current_user %>
-      <%= link_to 'Edit', edit_post_path(@post), class: 'btn btn-warning' %> |
-      <%= link_to 'Destroy', @post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %> |
-    <% end %>
+<% if @post.user == current_user %>
+  <%= link_to t('posts.show.edit'), edit_post_path(@post) %> |
+  <%= link_to t('posts.show.destroy'), @post, method: :delete, data: { confirm: t('posts.show.confirm_delete') } %> |
+<% end %>
 
-    <%= link_to 'Back', posts_path, class: 'btn btn-secondary mt-3' %>
-  </div>
-</body>
-</html>
+<%= link_to t('posts.show.back'), posts_path %>
